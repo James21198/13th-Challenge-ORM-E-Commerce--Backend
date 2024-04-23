@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json(categoryData);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -37,9 +37,9 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newTagData = await Tag.create({
-      product_id: req.body.product_id,
-    });
+    const newTagData = await Tag.create(
+      req.body
+    );
     res.status(200).json(newTagData);
   } catch (err) {
     res.status(400).json(err);
@@ -51,8 +51,8 @@ router.put('/:id', (req, res) => {
   Tag.update(
     {
       // All the fields you can update and the data attached to the request body
-      product_id: req.body.id,
-      tag_id: req.body.id,
+      id: req.body.id,
+      tag_name: req.body.tag_name,
     },
     {
       where: {
